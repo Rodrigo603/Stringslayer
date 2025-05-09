@@ -9,6 +9,7 @@ CFLAGS = -Wall -Iinclude
 SRC_DIR = src
 INC_DIR = include
 BUILD_DIR = build
+ASSETS_DIR = assets
 
 # Todos os arquivos .c em src/
 SRCS = $(wildcard $(SRC_DIR)/*.c)
@@ -31,8 +32,13 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 $(TARGET): $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LIBS)
 
-# Executa o programa
-run: $(TARGET)
+# Copia os assets para o diretório de build
+assets:
+	@mkdir -p $(BUILD_DIR)
+	cp -r $(ASSETS_DIR)/* $(BUILD_DIR)/
+
+# Executa o programa (com assets atualizados)
+run: all assets
 	./$(TARGET)
 
 # Remove arquivos gerados

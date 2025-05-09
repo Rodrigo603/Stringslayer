@@ -1,15 +1,30 @@
 #include "raylib.h"
 
 int main(void) {
-    InitWindow(800, 600, "StringSlayer");
+    const int screenWidth = 800;
+    const int screenHeight = 600;
+
+    InitWindow(screenWidth, screenHeight, "StringSlayer");
+
+    Texture2D background = LoadTexture("assets/String Slayer.png");
+
+    SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(BLACK);
-        DrawText("String Slayer", 350, 280, 20, RAYWHITE);
+
+        DrawTexturePro(
+            background,
+            (Rectangle){ 0, 0, (float)background.width, (float)background.height },  
+            (Rectangle){ 0, 0, (float)screenWidth, (float)screenHeight },            
+            (Vector2){ 0, 0 }, 0.0f, WHITE                                           
+        );
+
         EndDrawing();
     }
 
+    UnloadTexture(background);
     CloseWindow();
     return 0;
 }
