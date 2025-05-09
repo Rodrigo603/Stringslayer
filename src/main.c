@@ -5,8 +5,8 @@ int main(void) {
 
     while (!WindowShouldClose()) {
         BeginDrawing();
-        ClearBackground(RAYWHITE);
-        DrawText("String Slayer", 350, 280, 20, BLACK);
+        ClearBackground(BLACK);
+        DrawText("String Slayer", 350, 280, 20, RAYWHITE);
         EndDrawing();
     }
 
