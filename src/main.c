@@ -1,35 +1,32 @@
+#include "sprites.h"
 #include "raylib.h"
 
 int main(void) 
 {
     const int screenWidth = 800;
     const int screenHeight = 600;
-
+    
     InitWindow(screenWidth, screenHeight, "StringSlayer");
 
     Texture2D background = LoadTexture("assets/String Slayer.png");
     Texture2D esteira = LoadTexture("assets/esteira.png");
+    Texture2D notaSprite = LoadTexture("assets/.png"); 
 
     Rectangle playButton = { 300, 250, 200, 50 };  
-
     Color buttonColor = DARKGRAY;
 
-    
     SetTargetFPS(60);
 
     bool isPlaying = false;  
 
-   
     while (!WindowShouldClose()) 
     {
-       
         if (!isPlaying && CheckCollisionPointRec(GetMousePosition(), playButton) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
             isPlaying = true;
         }
 
         BeginDrawing();
-
         ClearBackground(BLACK); 
 
         if (!isPlaying) 
@@ -56,6 +53,7 @@ int main(void)
             float posY = (screenHeight - height) / 2.0f;
 
             Rectangle targetRect = { posX, posY, width, height };
+
             DrawTexturePro(
                 esteira,
                 (Rectangle){ 0, 0, (float)esteira.width, (float)esteira.height },
@@ -64,6 +62,17 @@ int main(void)
                 0.0f,
                 WHITE
             );
+
+            int linhas = 6;
+            float alturaLinha = height / (float)linhas;
+
+            for (int i = 0; i < linhas; i++)
+            {
+                float spriteX = posX + (width - notaSprite.width) / 2.0f;
+                float spriteY = posY + i * alturaLinha + (alturaLinha - notaSprite.height) / 2.0f;
+
+                DrawTexture(notaSprite, spriteX, spriteY, WHITE);
+            }
         }
 
         EndDrawing();
@@ -71,6 +80,7 @@ int main(void)
 
     UnloadTexture(background);
     UnloadTexture(esteira);
+    UnloadTexture(notaSprite); 
 
     CloseWindow();
 
